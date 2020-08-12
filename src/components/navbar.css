@@ -1,0 +1,25 @@
+@media only screen and (max-width: 992px) {
+  #navbar-custom {
+    background-color: #000;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  #navbar-custom {
+    background-color: #fff;
+  }
+}
+
+#navbar-custom .navbar-brand,
+#navbar-custom .navbar-brand:hover {
+  color: #000;
+}
+
+#navbar-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: all 0.3s ease-out;
+  z-index: 10;
+}
