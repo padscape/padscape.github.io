@@ -5,7 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import $ from "jquery";
 import "./index.css";
-import coding1 from "./assets/dual-screen-1745705_1280.png";
+import img1 from "./assets/dual-screen-1745705_1280.png";
+import img2 from "./assets/github.png";
 import Navbar from "./components/navbar";
 import Header from "./components/header";
 import TextPane from "./components/textPane";
@@ -30,7 +31,7 @@ const contents = [
         </a>
       </React.Fragment>
     ),
-    img: coding1,
+    img: img1,
   },
   {
     id: 2,
@@ -48,8 +49,7 @@ const contents = [
         </p>
       </React.Fragment>
     ),
-    img:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.dtNE8IQSVDx0zNH7JJPWBwHaHa%26pid%3DApi&f=1",
+    img: img2,
   },
 ];
 
@@ -67,7 +67,15 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-function slideAnimation() {
+const scrollToTop = () => {
+  const c = document.documentElement.scrollTop || document.body.scrollTop;
+  if (c > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    window.scrollTo(0, c - c / 8);
+  }
+};
+
+const slideAnimation = () => {
   $(".slideanim").each(function () {
     let pos = $(this).offset().top;
     let winTop = $(window).scrollTop();
@@ -76,17 +84,20 @@ function slideAnimation() {
       $(this).addClass("slide");
     }
   });
-}
+};
 
-function navbarTransition() {
+const navbarTransition = () => {
   let scroll = $(window).scrollTop();
+  $("#navbar-custom").css(
+    "box-shadow",
+    scroll > 150 ? "rgba(0, 0, 0, 0.1) 0 0 10px" : "box-shadow",
+    "none"
+  );
+};
 
-  if (scroll <= 150) {
-    $("#navbar-custom").css("box-shadow", "none");
-  } else {
-    $("#navbar-custom").css("box-shadow", "rgba(0, 0, 0, 0.1) 0 0 10px");
-  }
-}
+$("#toTop").on("click", () => {
+  scrollToTop();
+});
 
 $(window).scroll(() => {
   navbarTransition();

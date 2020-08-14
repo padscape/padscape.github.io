@@ -1,17 +1,30 @@
 import React, { Component } from "react";
+import img from "./../assets/work-4997565_1280.png";
 import "./header.css";
 
 class Header extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="header">
-          <h1
-            style={{ fontSize: "5rem", padding: "15rem 1.25rem 8rem 1.25rem" }}
-          >
-            Padscape
-          </h1>
-          <div>
+        <div
+          className="header row justify-content-center"
+          style={{ paddingTop: "12rem" }}
+        >
+          <div className="col-xs-6" style={{ paddingBottom: "15rem" }}>
+            <h1
+              style={{
+                fontSize: "5rem",
+                paddingTop: "8rem",
+              }}
+            >
+              Padscape
+            </h1>
+            <p>A new alternative for code editing</p>
+          </div>
+          <div className="col-xs-6">
+            <img alt="" src={img} className="img-fluid header-img"></img>
+          </div>
+          <div style={{ width: "100%" }}>
             <svg
               className="waves"
               viewBox="0 24 150 28"

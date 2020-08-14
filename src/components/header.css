@@ -1,20 +1,23 @@
 .header {
   position: relative;
   text-align: center;
-  background: #09f;
+  background-image: linear-gradient(
+    47deg,
+    #8c3cee 0%,
+    #2f85f6 60%,
+    #2daef7 100%
+  );
   color: #fff;
 }
 
-.wave > svg {
-  display: block;
-}
-
-.wave {
-  position: relative;
-  background: #09f;
-  color: #fff;
-  text-align: center;
-  overflow: hidden;
+.header-img {
+  height: 500px;
+  animation-name: floating;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
 }
 
 .waves {
@@ -56,5 +59,17 @@
   }
   100% {
     transform: translate3d(85px, 0, 0);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, -0px);
   }
 }
