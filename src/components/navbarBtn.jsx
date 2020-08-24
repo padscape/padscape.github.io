@@ -1,4 +1,10 @@
+// IMPORTS
+
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
+// STYLES
+
 import "./navbarBtn.css";
 
 class NavbarBtn extends Component {
@@ -11,9 +17,9 @@ class NavbarBtn extends Component {
   render() {
     return (
       <li id="nav-item">
-        <a href={this.state.link} className={this.getButtonClasses()}>
+        <Link to={this.state.link} className={this.getButtonClasses()}>
           {this.state.content}
-        </a>
+        </Link>
       </li>
     );
   }

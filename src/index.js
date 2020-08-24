@@ -1,16 +1,31 @@
+// IMPORTS
+
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
+import "tilt.js";
 import $ from "jquery";
+
+// STYLES
+
 import "./index.css";
+
+// IMAGES
+
 import img1 from "./assets/dual-screen-1745705_1280.png";
 import img2 from "./assets/github.png";
+
+// COMPONENTS
+
 import Navbar from "./components/navbar";
 import Header from "./components/header";
 import TextPane from "./components/textPane";
 import Footer from "./components/footer";
+import LoginForms from "./components/loginForms";
+import Page404 from "./404";
 
 const contents = [
   {
@@ -53,9 +68,8 @@ const contents = [
   },
 ];
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Navbar />
+const Home = () => (
+  <React.Fragment>
     <Header />
     {contents.map((pane) => (
       <TextPane key={pane.id} imageSrc={pane.img} id={pane.id}>
@@ -63,9 +77,31 @@ ReactDOM.render(
       </TextPane>
     ))}
     <Footer />
+  </React.Fragment>
+);
+
+const Login = () => <LoginForms key="1" type="Log in" />;
+
+const Signup = () => <LoginForms key="2" type="Sign up" />;
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route component={Page404} />
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+$(".js-tilt").tilt({
+  scale: 1.1,
+});
 
 const scrollToTop = () => {
   const c = document.documentElement.scrollTop || document.body.scrollTop;

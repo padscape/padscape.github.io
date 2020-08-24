@@ -1,13 +1,21 @@
+// IMNPORTS
+
 import React, { Component } from "react";
-import NavbarBtn from "./navbarBtn";
+
+// STYLES
+
 import "./navbar.css";
+
+// COMPONENTS
+
+import NavbarBtn from "./navbarBtn";
 
 class Navbar extends Component {
   state = {
     buttons: [
-      { id: 1, link: "./index.html", content: "Home", color: false },
-      { id: 2, link: "./login.html", content: "Log In", color: true },
-      { id: 3, link: "./signup.html", content: "Sign Up", color: true },
+      { id: 1, link: "/", content: "Home", color: false },
+      { id: 2, link: "/login", content: "Log In", color: true },
+      { id: 3, link: "/signup", content: "Sign Up", color: true },
     ],
   };
 

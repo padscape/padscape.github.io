@@ -50,6 +50,147 @@ body {
   visibility: visible;
 }
 
+button,
+.button:focus {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.button span,
+.button::before {
+  background: #29323c;
+  background: -moz-linear-gradient(left, #6927ff 0%, #6827ffd5 100%);
+  background: -webkit-linear-gradient(left, #6927ff 0%, #6827ffd5 100%);
+  background: linear-gradient(to right, #6827ff 0%, #6827ffd5 100%);
+}
+
+.button {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  position: absolute;
+}
+
+.button::before {
+  content: "";
+  display: inline-block;
+  height: 2.5rem;
+  position: absolute;
+  bottom: 0.3125rem;
+  left: 1.875rem;
+  right: 1.875rem;
+  z-index: -1;
+  border-radius: 30rem;
+  filter: blur(1.25rem) brightness(0.95);
+  transform-style: preserve-3d;
+  transition: all 0.3s ease-out;
+}
+
+.button span {
+  display: inline-block;
+  padding: 1.125rem 3.75rem;
+  border-radius: 50rem;
+  position: relative;
+  z-index: 2;
+  will-change: transform, filter;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease-out;
+}
+
+.button:hover span {
+  filter: brightness(1.05) contrast(1.05);
+  transform: scale(0.95);
+}
+
+.button:hover::before {
+  bottom: 0;
+  filter: blur(0.625rem) brightness(0.95);
+}
+
+.button:focus,
+.button:active,
+.button:hover {
+  color: #fff;
+}
+
+.link {
+  color: #fff;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.4s ease-out;
+}
+
+.link:hover {
+  color: #eee;
+  text-decoration: none;
+  right: 0;
+}
+
+.link:hover:after {
+  border-color: #eee;
+  right: 0;
+}
+
+.link:after {
+  border-radius: 1em;
+  border-top: 0.1em solid #ddd;
+  content: "";
+  position: absolute;
+  right: 100%;
+  bottom: 0.14em;
+  left: 0;
+  transition: right 0.4s cubic-bezier(0, 0.5, 0, 1), border-color 0.4s ease-out;
+}
+
+.link:hover:after {
+  animation: anchor-underline 2s cubic-bezier(0, 0.5, 0, 1) infinite;
+  border-color: #eee;
+}
+
+@keyframes anchor-underline {
+  0%,
+  10% {
+    left: 0;
+    right: 100%;
+  }
+
+  40%,
+  60% {
+    left: 0;
+    right: 0;
+  }
+
+  90%,
+  100% {
+    left: 100%;
+    right: 0;
+  }
+}
+
+@-webkit-keyframes anchor-underline {
+  0%,
+  10% {
+    left: 0;
+    right: 100%;
+  }
+
+  40%,
+  60% {
+    left: 0;
+    right: 0;
+  }
+
+  90%,
+  100% {
+    left: 100%;
+    right: 0;
+  }
+}
+
 @keyframes slide {
   0% {
     opacity: 0;

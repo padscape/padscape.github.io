@@ -1,6 +1,14 @@
+// IMPORTS
+
 import React, { Component } from "react";
-import img from "./../assets/work-4997565_1280.png";
+
+// STYLES
+
 import "./header.css";
+
+// IMAGES
+
+import img from "./../assets/work-4997565_1280.png";
 
 class Header extends Component {
   render() {

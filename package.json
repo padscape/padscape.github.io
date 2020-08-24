@@ -12,7 +12,9 @@
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.2"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.2",
+    "tilt.js": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
