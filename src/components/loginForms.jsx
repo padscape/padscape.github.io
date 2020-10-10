@@ -1,7 +1,7 @@
 // IMPORTS
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import $ from "jquery";
 
 // STYLES
@@ -16,6 +16,11 @@ class LoginForms extends Component {
   constructor(props) {
     super(props);
     this.handleForm = this.handleForm.bind(this);
+    this.goToHome = this.goToHome.bind(this);
+  }
+
+  goToHome() {
+    this.props.history.push("/code-validation");
   }
 
   handleForm() {
@@ -24,23 +29,38 @@ class LoginForms extends Component {
     let valid = true;
 
     if (!$(".username").val() || $(".username").val().trim() === "") {
+      $(".username")
+        .parent()
+        .attr("data-validate", "Username cannot contain spaces.")
+        .addClass("alert-required");
+
+      valid = false;
+    } else if (/\s/.test($(".username").val())) {
       $(".username").parent().addClass("alert-required");
+
       valid = false;
     }
 
     if (!$(".password").val() || $(".password").val().trim() === "") {
       $(".password").parent().addClass("alert-required");
+
       valid = false;
-    } else if (
-      $(".password").val().length < 8 &&
-      this.props.type === "Sign up"
-    ) {
-      $(".password")
-        .eq(1)
-        .parent()
-        .attr("data-validate", "Password must be longer than 8 characters.")
-        .addClass("alert-required");
-      valid = false;
+    } else if (this.props.type === "Sign up") {
+      if ($(".password").val().length < 8) {
+        $(".password")
+          .parent()
+          .attr("data-validate", "Password must be longer than 8 characters.")
+          .addClass("alert-required");
+
+        valid = false;
+      } else if (/\s/.test($(".password").val())) {
+        $(".password")
+          .parent()
+          .attr("data-validate", "Password cannot contain spaces.")
+          .addClass("alert-required");
+
+        valid = false;
+      }
     }
 
     if (this.props.type === "Sign up") {
@@ -77,37 +97,36 @@ class LoginForms extends Component {
         contentType: "application/x-www-form-urlencoded",
         dataType: "json",
         success: (data) => {
-          if (data.id) {
-            window.location.assign(
-              `${window.location.protocol}//${window.location.host}`
-            );
+          if (data.page !== "") {
+            localStorage.padscapeUserToken = data.page + ".";
+            this.goToHome();
           } else {
             $(".username")
               .parent()
               .attr("data-validate", data.page)
               .addClass("alert-required");
-            return;
           }
         },
       });
+    } else {
+      $.ajax({
+        url: "https://padscape.herokuapp.com/user/login/",
+        type: "post",
+        data: `Username=${$(".username").val()}&Password=${$(
+          ".password"
+        ).val()}`,
+        contentType: "application/x-www-form-urlencoded",
+        dataType: "json",
+        success: (data) => {
+          if (data.page !== "") {
+            localStorage.padscapeUserToken = data.page + ".";
+            this.goToHome();
+          }
+
+          $("#invalid").text("Invalid username or password");
+        },
+      });
     }
-
-    $.ajax({
-      url: "https://padscape.herokuapp.com/user/login/",
-      type: "post",
-      data: `Username=${$(".username").val()}&Password=${$(".password").val()}`,
-      contentType: "application/x-www-form-urlencoded",
-      dataType: "json",
-      success: (data) => {
-        if (data.page === "valid") {
-          window.location.assign(
-            `${window.location.protocol}//${window.location.host}`
-          );
-        }
-
-        $("#invalid").text("Invalid username or password");
-      },
-    });
   }
 
   render() {
@@ -211,4 +230,4 @@ class LoginForms extends Component {
   }
 }
 
-export default LoginForms;
+export default withRouter(LoginForms);

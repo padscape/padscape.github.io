@@ -40,9 +40,9 @@ class Footer extends Component {
               </div>
             </div>
             <br></br>
-            <a id="toTop" title="To Top" style={{ color: "#fff" }}>
+            <button id="toTop" title="To Top" style={{ color: "#fff" }}>
               <i className="fas fa-angle-up"></i>
-            </a>
+            </button>
             <br></br>
             <br></br>
             <span>Padscape</span>

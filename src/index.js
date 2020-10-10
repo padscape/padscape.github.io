@@ -2,7 +2,12 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
@@ -23,6 +28,7 @@ import img2 from "./assets/github.png";
 import Navbar from "./components/navbar";
 import Header from "./components/header";
 import TextPane from "./components/textPane";
+import CodeValidation from "./components/validation";
 import Footer from "./components/footer";
 import LoginForms from "./components/loginForms";
 import Page404 from "./404";
@@ -68,6 +74,25 @@ const contents = [
   },
 ];
 
+const GuardedRoute = ({ component: Component, auth, redirect, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      Function(`"use strict"; return ${auth};`)() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={redirect} />
+      )
+    }
+  />
+);
+
+const Login = () => <LoginForms key="1" type="Log in" />;
+
+const Signup = () => <LoginForms key="2" type="Sign up" />;
+
+const Validation = () => <CodeValidation />;
+
 const Home = () => (
   <React.Fragment>
     <Header />
@@ -80,28 +105,41 @@ const Home = () => (
   </React.Fragment>
 );
 
-const Login = () => <LoginForms key="1" type="Log in" />;
-
-const Signup = () => <LoginForms key="2" type="Sign up" />;
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Navbar />
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route component={Page404} />
+        <GuardedRoute
+          path="/"
+          exact
+          component={Home}
+          auth={`localStorage.padscapeUserToken.slice(-1) !== "."`}
+          redirect="/code-validation"
+        />
+        <GuardedRoute
+          path="/login"
+          component={Login}
+          auth={`localStorage.padscapeUserToken.slice(-1) !== "."`}
+          redirect="/code-validation"
+        />
+        <GuardedRoute
+          path="/signup"
+          component={Signup}
+          auth={`localStorage.padscapeUserToken.slice(-1) !== "."`}
+          redirect="/code-validation"
+        />
+        <GuardedRoute
+          path="/code-validation"
+          component={Validation}
+          auth={`localStorage.padscapeUserToken.slice(-1) === "."`}
+          redirect="/"
+        />
       </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-$(".js-tilt").tilt({
-  scale: 1.1,
-});
 
 const scrollToTop = () => {
   const c = document.documentElement.scrollTop || document.body.scrollTop;
@@ -138,6 +176,10 @@ $("#toTop").on("click", () => {
 $(window).scroll(() => {
   navbarTransition();
   slideAnimation();
+});
+
+$(".js-tilt").tilt({
+  scale: 1.1,
 });
 
 serviceWorker.unregister();
