@@ -135,6 +135,7 @@ ReactDOM.render(
           auth={`localStorage.padscapeUserToken.slice(-1) === "."`}
           redirect="/"
         />
+        <Route component={Page404} />
       </Switch>
     </Router>
   </React.StrictMode>,
