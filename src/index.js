@@ -107,7 +107,7 @@ const Home = () => (
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router basename={`${process.env.PUBLIC_URL}/`}>
       <Navbar />
       <Switch>
         <GuardedRoute
