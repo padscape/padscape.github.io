@@ -114,25 +114,25 @@ ReactDOM.render(
           path="/"
           exact
           component={Home}
-          auth={`localStorage.padscapeUserToken.slice(-1) !== "."`}
+          auth={`(localStorage.padscapeUserToken || "").slice(-1) !== "."`}
           redirect="/code-validation"
         />
         <GuardedRoute
           path="/login"
           component={Login}
-          auth={`localStorage.padscapeUserToken.slice(-1) !== "."`}
+          auth={`(localStorage.padscapeUserToken || "").slice(-1) !== "."`}
           redirect="/code-validation"
         />
         <GuardedRoute
           path="/signup"
           component={Signup}
-          auth={`localStorage.padscapeUserToken.slice(-1) !== "."`}
+          auth={`(localStorage.padscapeUserToken || "").slice(-1) !== "."`}
           redirect="/code-validation"
         />
         <GuardedRoute
           path="/code-validation"
           component={Validation}
-          auth={`localStorage.padscapeUserToken.slice(-1) === "."`}
+          auth={`(localStorage.padscapeUserToken || "").slice(-1) === "."`}
           redirect="/"
         />
         <Route component={Page404} />
