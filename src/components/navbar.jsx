@@ -1,53 +1,45 @@
-// IMNPORTS
+// IMPORTS
 
-import React, { Component } from "react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 // STYLES
 
 import "./navbar.css";
 
-// COMPONENTS
-
-import NavbarBtn from "./navbarBtn";
-
-class Navbar extends Component {
-  state = {
-    buttons: [
-      { id: 1, link: "/", content: "Home", color: false },
-      { id: 2, link: "/login", content: "Log In", color: true },
-      { id: 3, link: "/signup", content: "Sign Up", color: true },
-    ],
-  };
-
-  render() {
-    return (
-      <nav className="navbar navbar-expand-lg" id="navbar-custom">
-        <div className="container navbar-dark">
-          <span className="navbar-brand">Padscape</span>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapse"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="collapse">
-            <ul className="navbar-nav ml-auto">
-              {this.state.buttons.map((button) => (
-                <NavbarBtn
-                  key={button.id}
-                  link={button.link}
-                  content={button.content}
-                  color={button.color}
-                />
-              ))}
-            </ul>
-          </div>
+export default function Navbar() {
+  return (
+    <nav className="navbar navbar-expand-lg" id="navbar-custom">
+      <div className="container navbar-dark">
+        <span className="navbar-brand">Padscape</span>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapse"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="collapse">
+          <ul className="navbar-nav ml-auto">
+            <li id="nav-item">
+              <NavLink to="/" className="nav-link rounded-lg">
+                Home
+              </NavLink>
+            </li>
+            <li id="nav-item">
+              <NavLink to="/login" className="nav-link rounded-lg nav-btn">
+                Log In
+              </NavLink>
+            </li>
+            <li id="nav-item">
+              <NavLink to="/signup" className="nav-link rounded-lg nav-btn">
+                Sign Up
+              </NavLink>
+            </li>
+          </ul>
         </div>
-      </nav>
-    );
-  }
+      </div>
+    </nav>
+  );
 }
-
-export default Navbar;

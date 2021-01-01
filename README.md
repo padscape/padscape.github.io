@@ -11,7 +11,7 @@ The official landing page for Padscape.
 ```bash
 > git clone https://github.com/padscape/padscape.github.io
 > cd padscape.github.io
-> npm init
+> npm install
 > npm start
 ```
 
@@ -30,6 +30,7 @@ To build the app, go to the project directory and run:
 - React
 - Bootstrap 4
 - jQuery
+- Firebase
 
 #
 
